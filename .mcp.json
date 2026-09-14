@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cyborg": {
+      "command": "uv",
+      "args": ["run", "--directory", ".", "cyborg-mcp"]
+    }
+  }
+}
