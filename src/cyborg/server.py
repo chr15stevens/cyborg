@@ -154,9 +154,14 @@ def scout_brief(project_ids: list[str] | None = None) -> dict[str, Any]:
         projects = [p for p in projects if p.active]
 
     if not projects:
+        # Same keys as the populated response, so a client can read next_step
+        # without checking which branch it got. The empty registry is the first
+        # thing a new client hits, which is the worst place for a KeyError.
         return {
             "brief": "",
             "projects": [],
+            "config": store.load_config().to_dict(),
+            "next_step": "Add a project with add_project, then call scout_brief again.",
             "warning": (
                 f"No active projects in {store.projects_path()}. "
                 "Add one with add_project before scouting."
